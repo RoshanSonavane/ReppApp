@@ -1,0 +1,351 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<head>
+<style>
+* {
+    box-sizing: border-box;
+}
+
+/* Main container */
+#pred {
+    max-width: 900px;
+    width: 90%;
+    margin: 40px auto;
+    background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,249,250,0.95) 100%);
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+}
+
+/* Heading */
+h1 {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 35px;
+    letter-spacing: -0.5px;
+}
+
+/* Form sections */
+.form-section {
+    margin-bottom: 30px;
+}
+
+.section-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+/* Table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    text-align: left;
+    padding: 12px 0;
+    vertical-align: top;
+    font-size: 16px;
+    font-weight: 600;
+    color: #2d3748;
+}
+
+td {
+    padding: 12px 0;
+}
+
+/* Numeric inputs */
+input[type=number] {
+    width: 100%;
+    max-width: 300px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    border: 2px solid #e2e8f0;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    background-color: #ffffff;
+}
+
+input[type=number]:focus {
+    outline: none;
+    border-color: #4CAF50;
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+}
+
+/* Submit button */
+input[type=submit] {
+    width: 100%;
+    max-width: 400px;
+    padding: 16px;
+    margin: 30px auto;
+    display: block;
+    border-radius: 10px;
+    border: none;
+    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    color: white;
+    font-weight: 600;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+input[type=submit]:hover {
+    background: linear-gradient(135deg, #45a049 0%, #3d8b40 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+}
+
+input[type=submit]:active {
+    transform: translateY(0);
+}
+
+/* Radio buttons styling */
+input[type=radio] {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+    cursor: pointer;
+    accent-color: #4CAF50;
+}
+
+/* Boolean features grid */
+.boolean-group {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 25px;
+    background-color: #f7fafc;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+}
+
+.feature-item {
+    background-color: #ffffff;
+    padding: 16px;
+    border-radius: 8px;
+    border: 2px solid #e2e8f0;
+    transition: all 0.2s ease;
+}
+
+.feature-item:hover {
+    border-color: #cbd5e0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.feature-label {
+    display: block;
+    font-size: 15px;
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 10px;
+}
+
+.radio-options {
+    display: flex;
+    gap: 20px;
+}
+
+.radio-option {
+    display: flex;
+    align-items: center;
+}
+
+.radio-option input[type=radio] {
+    margin: 0;
+    margin-right: 6px;
+}
+
+.radio-option label {
+    margin: 0;
+    font-size: 14px;
+    color: #4a5568;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* Location radio buttons */
+.location-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
+}
+
+.location-group > div {
+    display: flex;
+    align-items: center;
+}
+
+.location-group input[type=radio] {
+    position: absolute;
+    opacity: 0;
+}
+
+.location-group label {
+    width: 100%;
+    background-color: #ffffff;
+    padding: 12px 16px;
+    border-radius: 8px;
+    border: 2px solid #e2e8f0;
+    transition: all 0.2s ease;
+    text-align: center;
+    font-weight: 500;
+    color: #4a5568;
+    cursor: pointer;
+}
+
+.location-group label:hover {
+    border-color: #cbd5e0;
+    background-color: #f7fafc;
+}
+
+.location-group input[type=radio]:checked + label {
+    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    color: white;
+    border-color: #4CAF50;
+    box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+}
+
+/* Input field container */
+.input-container {
+    margin-bottom: 20px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    #pred {
+        padding: 25px;
+        margin: 20px auto;
+    }
+
+    h1 {
+        font-size: 26px;
+    }
+
+    .section-title {
+        font-size: 18px;
+    }
+
+    .boolean-group {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 15px;
+        gap: 15px;
+    }
+
+    .location-group {
+        grid-template-columns: 1fr;
+    }
+
+    input[type=number] {
+        max-width: 100%;
+    }
+
+    input[type=submit] {
+        max-width: 100%;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    #pred {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 22px;
+    }
+
+    .boolean-group {
+        grid-template-columns: 1fr;
+    }
+
+    th, td {
+        display: block;
+        width: 100%;
+        padding: 8px 0;
+    }
+
+    th {
+        margin-top: 15px;
+    }
+}
+</style>
+</head>
+
+<body>
+<div id="pred">
+    <h1>{{ msg }}</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="form-section">
+            <div class="section-title">Location</div>
+            <div class="location-group">
+                {% for radio in fm.loc %}
+                    <div>
+                        {{ radio.tag }}<label for="{{ radio.id_for_label }}">{{ radio.choice_label }}</label>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="form-section">
+            <div class="section-title">Property Details</div>
+            <table>
+                <tr>
+                    <th>{{ fm.area.label_tag }}</th>
+                    <td>
+                        <div class="input-container">
+                            {{ fm.area }}
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>{{ fm.bd.label_tag }}</th>
+                    <td>
+                        <div class="input-container">
+                            {{ fm.bd }}
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="form-section">
+            <div class="section-title">Features & Amenities</div>
+            <div class="boolean-group">
+                {% for field in fm %}
+                    {% if field.name not in "loc area bd" %}
+                        <div class="feature-item">
+                            <span class="feature-label">{{ field.label }}</span>
+                            <div class="radio-options">
+                                {% for radio in field %}
+                                    <div class="radio-option">
+                                        {{ radio.tag }}
+                                        <label for="{{ radio.id_for_label }}">{{ radio.choice_label }}</label>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+
+        <input type="submit" value="Predict Price" />
+    </form>
+</div>
+</body>
+{% endblock %}

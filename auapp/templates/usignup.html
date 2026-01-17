@@ -1,0 +1,32 @@
+
+{% extends 'base.html' %}
+{% load static %}{% block content %}
+<head><style>
+h1 {
+  text-shadow: 2px 2px 5px purple;
+font-size:45px;
+font-family:Algerian;
+color:black;
+}
+input[type=password],input[type=text] {
+  border: 2px solid grey;
+  border-radius: 4px;
+font-family:calibri;
+width:25%;
+}
+
+</style></head>
+<h1>Signup Page</h1>
+<form method="POST">
+{% csrf_token %}
+<input type="text" name="un" placeholder="enter username" required>
+<br><br>
+<input type="password" name="pw1" placeholder="enter password" required>
+<br><br>
+<input type="password" name="pw2" placeholder="enter password again" required>
+<br><br>
+<input type="submit" value="Register"  class="btn1" />
+</form>
+<i>
+{{ msg }}</i>
+{% endblock %}

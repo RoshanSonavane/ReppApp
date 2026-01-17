@@ -1,0 +1,70 @@
+{%  extends  'base.html'  %}
+{%   block content %}
+
+<head><style>
+
+
+form { font-family:Simsun; }
+fb {
+
+    width: -60%;
+    float: left;
+    } 
+table {
+  font-weight: 900;
+  width: 50%;
+ 
+}
+
+th
+{
+text-align: left;
+
+}
+td
+{
+height:50;
+text-align: left;
+}
+
+h1 {
+  text-shadow: 2px 2px 5px green;
+font-size:45px;
+font-family:Algerian;
+color:black;
+}
+input[type=number],input[type=text] {
+  border: 2px solid grey;
+  border-radius: 4px;
+font-family:calibri;
+width:100%;
+height:100px;
+text-align:relative;
+}
+</style>
+</head>
+<div class="fb">
+	<h1> Feedback Please </h1>
+	<form method="POST">
+		{%  csrf_token  %}
+
+    <table>
+    <tr><td>Is it working </td>                 
+    <td><input type="radio"  name="working" value="yes"  />Yes
+<input type="radio" name="working" value="no">No</td></tr>
+    <tr><td>Is it beautiful </td>             
+    <td><input type="radio" name="beautiful"  value="yes" />Yes
+<input type="radio" name="beautiful" value="no">No</td></tr>
+    <tr><td>Is it useful </td>                
+    <td><input type="radio" name="useful" value="yes"  />Yes
+<input type="radio" name="useful" value="no">No</td></tr>
+    <tr><td>Can you suggest to freinds </td>    
+    <td><input type="radio" name="suggested" value="yes"  />Yes
+<input type="radio" name="suggested" value="no">No</td></tr>
+<tr><td>Any Suggestions :</td></tr><tr><td><input type="text" placeholder="enter your suggestion" name="suggestion" required/></td></tr>
+</table><br>
+		<input type="submit" class="btn1"/>
+	</form>
+</div>
+	{{ msg }}
+{%  endblock  %}

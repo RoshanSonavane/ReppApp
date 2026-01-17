@@ -1,0 +1,132 @@
+{% load static %}
+<html>
+
+<head>
+<title>REPP WEB APP</title>
+
+<style>
+* {font-size:30px;}
+.nav {background-color:rgb(164, 81, 197);  width:100%;}
+.nav a{font-size: 30px; color:white; text-decoration:None; margin:70px; font-family: Calibri;}
+#bg {
+  background-image: url("{% static 'home1.jpg' %}");
+  background-repeat: no-repeat;
+  background-size: 1370px 650px;
+  background-position: top;
+}
+
+#body1{
+    background-color: lightyellow;
+}
+   .btn1{
+      margin-right: 50px;
+  }
+  *{ text-decoration: none; }
+  .btn1 {
+display: inline-block;
+padding: 15px 25px;
+font-size: 24px;
+cursor: pointer;
+text-align: center;
+text-decoration: none;
+outline: none;
+color: #fff;
+background-color: #e319be;
+border: none;
+border-radius: 15px;
+box-shadow: 0 9px #999;
+}
+
+.btn1:hover {background-color: #39de0f ;
+
+}
+
+.btn1:active {
+background-color: #d628f5;
+box-shadow: 0 5px #666;
+transform: translateY(4px);
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: rgb(164, 81, 197);
+}
+
+li {
+  float: left;
+}
+
+li a, .dropbtn {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover, .dropdown:hover .dropbtn {
+  background-color: red;
+}
+
+li.dropdown {
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1;}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+</style>
+</head>
+<body id="bg">
+  <center>
+
+    {% if user.is_authenticated %}
+      <ul>
+        <li><a href="{% url 'uwelcome' %}">Home</a></li>
+        <li><a href="{% url 'prediction' %}">Prediction</a></li>
+        <li><a href="{% url 'fb' %}">FeedBack</a></li>
+        <li class="dropdown">
+          <a href="javascript:void(0)" class="dropbtn">Menu</a>
+          <div class="dropdown-content">
+            <a href="{% url 'ucp' %}">Change Password</a>
+            <a href="{% url 'about' %}">About Us</a>
+            <a href="{% url 'ulogout' %}">Logout</a>
+          </div>
+        </li>
+      </ul>
+    {% else %}
+      <ul>
+        <li><a href="{% url 'uhome' %}">Home</a></li>
+        <li><a href="{% url 'ulogin' %}">Login</a></li>
+        <li><a href="{% url 'usignup' %}">Signup</a></li>
+      </ul>
+    {% endif %}
+
+    {% block content %}
+    {% endblock %}
+
+  </center>
+</body>
+
+</html>

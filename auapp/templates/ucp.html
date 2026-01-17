@@ -1,0 +1,30 @@
+
+{% extends 'base.html' %}
+{% load static %}{% block content %}
+<head><style>
+h1 {
+  text-shadow: 2px 2px 5px purple;
+font-size:45px;
+font-family:Algerian;
+color:black;
+}
+input[type=password] {
+  border: 2px solid grey;
+  border-radius: 4px;
+font-family:calibri;
+}
+
+</style></head>
+
+
+<h1>Change Password Page</h1>
+<form method="POST">
+{% csrf_token %}
+<input type="password" name="pw1" placeholder="enter new password" required>
+<br><br>
+<input type="password" name="pw2" placeholder="confirm password" required>
+<br><br>
+<input type="submit" value="Change Password" class="btn1" />
+</form>
+{{ msg }}
+{% endblock %}

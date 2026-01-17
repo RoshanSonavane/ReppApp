@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<html>
+<head>
+<title>REPP WEB APP</title>
+<style>
+h1 {
+  text-shadow: 2px 2px 5px green;
+font-size:45px;
+font-family:Algerian;
+color:black;
+}
+</style>
+</head>
+<center>
+<div><br><br>
+    <h1>WELCOME {{ user.username }} IN REPP WEB APPLICATION</h1>
+    <div><br>
+        <button class="btn1"><a href="{% url 'prediction' %}">Prediction</a></button><br><br>
+        <button class="btn1"><a href="{% url 'fb' %}">Feedback</a></button><br><br>
+    </div>
+</div></center>
+
+
+{% endblock %}

@@ -1,0 +1,371 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<head>
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    line-height: 1.6;
+}
+
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(135deg, #d4d7e9 0%, #764ba2 100%);
+    padding: 60px 20px;
+    text-align: center;
+    color: white;
+    margin-bottom: 60px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.hero-section h2 {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 30px;
+    letter-spacing: -0.5px;
+}
+
+.team-names {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.team-names h3 {
+    font-size: 20px;
+    font-weight: 500;
+    padding: 10px 20px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 25px;
+    backdrop-filter: blur(10px);
+}
+
+/* Section Title */
+.section-title {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 700;
+    color: #2d3748;
+    margin-bottom: 50px;
+}
+
+/* Team Grid */
+.team-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px 60px;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+/* Team Card */
+.team-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.team-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+}
+
+.card-image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    background: linear-gradient(135deg, #b1badf 0%, #764ba2 100%);
+}
+
+.card-content {
+    padding: 25px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-content h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #2d3748;
+    margin-bottom: 8px;
+}
+
+.card-title {
+    font-size: 16px;
+    color: #667eea;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.card-description {
+    font-size: 15px;
+    color: #4a5568;
+    margin-bottom: 12px;
+    flex: 1;
+}
+
+.card-email {
+    font-size: 14px;
+    color: #718096;
+    margin-bottom: 20px;
+}
+
+/* Contact Button */
+.contact-button {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.contact-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+/* Popup */
+.popup-container {
+    position: relative;
+}
+
+.popup {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #2d3748;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 15px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    z-index: 10;
+}
+
+.popup::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 8px;
+    border-style: solid;
+    border-color: #2d3748 transparent transparent transparent;
+}
+
+.popup.show {
+    opacity: 1;
+    visibility: visible;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .team-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 40px 20px;
+    }
+
+    .hero-section h2 {
+        font-size: 28px;
+    }
+
+    .team-names {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .team-names h3 {
+        font-size: 18px;
+    }
+
+    .section-title {
+        font-size: 26px;
+        margin-bottom: 30px;
+    }
+
+    .team-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-section h2 {
+        font-size: 24px;
+    }
+
+    .team-names h3 {
+        font-size: 16px;
+    }
+
+    .card-content {
+        padding: 20px;
+    }
+
+    .card-content h2 {
+        font-size: 20px;
+    }
+}
+</style>
+</head>
+
+<body>
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <h2>This Mini Project is Made By</h2>
+        <div class="team-names">
+            <h3>Roshan Sonavane</h3>
+            <h3>Kishan Mishra</h3>
+            <h3>Gaurav Jha</h3>
+            <h3>Govind Lohar</h3>
+        </div>
+    </div>
+
+    <!-- Team Section -->
+    <div class="team-container">
+        <h2 class="section-title">Our Team</h2>
+        
+        <div class="team-grid">
+            <!-- Roshan Card -->
+            <div class="team-card">
+                <img src="{% static 'roshan1.jpg' %}" alt="Roshan Sonavane" class="card-image">
+                <div class="card-content">
+                    <h2>Roshan Sonavane</h2>
+                    <p class="card-title">Front-end and Backend Developer 1</p>
+                    <p class="card-description">He develops this webapp for Front-end and Backend</p>
+                    <p class="card-email">roshan730477@gmail.com</p>
+                    <div class="popup-container">
+                        <button class="contact-button" onclick="togglePopup('popupRoshan')">Contact</button>
+                        <div class="popup" id="popupRoshan">+91-9136379117</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kishan Card -->
+            <div class="team-card">
+                <img src="{% static 'kishan1.png' %}" alt="Kishan Mishra" class="card-image">
+                <div class="card-content">
+                    <h2>Kishan Mishra</h2>
+                    <p class="card-title">Front-end and Backend Developer 2</p>
+                    <p class="card-description">He collects the back-end data for predictions.</p>
+                    <p class="card-email">Kishanmishra116@gmail.com</p>
+                    <div class="popup-container">
+                        <button class="contact-button" onclick="togglePopup('popupKishan')">Contact</button>
+                        <div class="popup" id="popupKishan">+91-7021440669</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gaurav Card -->
+            <div class="team-card">
+                <img src="{% static 'gaurav.png' %}" alt="Gaurav Jha" class="card-image">
+                <div class="card-content">
+                    <h2>Gaurav Jha</h2>
+                    <p class="card-title">Documentation Editor</p>
+                    <p class="card-description">He made the report file and ppt for miniproject.</p>
+                    <p class="card-email">gaurav1922442@gmail.com</p>
+                    <div class="popup-container">
+                        <button class="contact-button" onclick="togglePopup('popupGaurav')">Contact</button>
+                        <div class="popup" id="popupGaurav">+91-9370344100</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Govind Card -->
+            <div class="team-card">
+                <img src="{% static 'govind.png' %}" alt="Govind Lohar" class="card-image">
+                <div class="card-content">
+                    <h2>Govind Lohar</h2>
+                    <p class="card-title">Founder</p>
+                    <p class="card-description">He found the idea behind the whole mini project.</p>
+                    <p class="card-email">lohargovind11@gmail.com</p>
+                    <div class="popup-container">
+                        <button class="contact-button" onclick="togglePopup('popupGovind')">Contact</button>
+                        <div class="popup" id="popupGovind">+91-9372127934</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function togglePopup(popupId) {
+            // Close all popups first
+            document.querySelectorAll('.popup').forEach(popup => {
+                if (popup.id !== popupId) {
+                    popup.classList.remove('show');
+                }
+            });
+            
+            // Toggle the clicked popup
+            const popup = document.getElementById(popupId);
+            popup.classList.toggle('show');
+            
+            // Auto-hide after 3 seconds
+            if (popup.classList.contains('show')) {
+                setTimeout(() => {
+                    popup.classList.remove('show');
+                }, 3000);
+            }
+        }
+
+        // Close popup when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.popup-container')) {
+                document.querySelectorAll('.popup').forEach(popup => {
+                    popup.classList.remove('show');
+                });
+            }
+        });
+    </script>
+</body>
+
+{% endblock %}

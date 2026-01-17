@@ -1,0 +1,434 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<head>
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Hero Section */
+.hero-title {
+    font-size: 48px;
+    font-weight: 700;
+    color: #1a1a1a;
+    text-align: center;
+    margin-bottom: 50px;
+    letter-spacing: -0.5px;
+    text-shadow: 3px 3px 6px rgba(103, 58, 183, 0.3);
+    animation: fadeInDown 0.8s ease-out;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Slideshow Container */
+.slideshow-wrapper {
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.slideshow-container {
+    position: relative;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    padding: 20px;
+}
+
+/* Slides */
+.mySlides {
+    display: none;
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.mySlides img {
+    width: 100%;
+    height: 600px;
+    object-fit: cover;
+    border-radius: 16px;
+    filter: brightness(0.7);
+}
+
+/* Overlay for better text readability */
+.slide-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.6) 100%);
+    border-radius: 16px;
+}
+
+/* Caption Text */
+.text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 48px;
+    font-weight: 700;
+    text-align: center;
+    width: 90%;
+    padding: 20px;
+    text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.8),
+                 0 0 30px rgba(138, 43, 226, 0.6),
+                 0 0 15px rgba(138, 43, 226, 0.4);
+    letter-spacing: 1px;
+    line-height: 1.3;
+    animation: textGlow 2s ease-in-out infinite;
+}
+
+@keyframes textGlow {
+    0%, 100% {
+        text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.8),
+                     0 0 30px rgba(138, 43, 226, 0.6),
+                     0 0 15px rgba(138, 43, 226, 0.4);
+    }
+    50% {
+        text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.8),
+                     0 0 40px rgba(138, 43, 226, 0.8),
+                     0 0 25px rgba(138, 43, 226, 0.6);
+    }
+}
+
+/* Tech Stack Tags */
+.tech-stack {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    width: 90%;
+}
+
+.tech-tag {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    padding: 8px 16px;
+    border-radius: 20px;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Dots/Indicators */
+.dots-container {
+    text-align: center;
+    margin-top: 30px;
+    padding: 20px;
+}
+
+.dot {
+    height: 16px;
+    width: 16px;
+    margin: 0 8px;
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    display: inline-block;
+    transition: all 0.4s ease;
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+.dot:hover {
+    background-color: rgba(255, 255, 255, 0.6);
+    transform: scale(1.2);
+}
+
+.dot.active {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: scale(1.3);
+    box-shadow: 0 0 15px rgba(102, 126, 234, 0.6);
+}
+
+/* Fade Animation */
+.fade {
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+@keyframes fade {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Navigation Arrows */
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: auto;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 24px;
+    transition: all 0.3s ease;
+    border-radius: 50%;
+    user-select: none;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    z-index: 10;
+}
+
+.prev {
+    left: 20px;
+}
+
+.next {
+    right: 20px;
+}
+
+.prev:hover, .next:hover {
+    background: rgba(255, 255, 255, 0.4);
+    transform: translateY(-50%) scale(1.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 32px;
+        margin-bottom: 30px;
+    }
+
+    .slideshow-container {
+        padding: 15px;
+    }
+
+    .mySlides img {
+        height: 400px;
+    }
+
+    .text {
+        font-size: 28px;
+        padding: 15px;
+    }
+
+    .tech-stack {
+        bottom: 20px;
+        gap: 8px;
+    }
+
+    .tech-tag {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+
+    .prev, .next {
+        padding: 12px;
+        font-size: 20px;
+    }
+
+    .prev {
+        left: 10px;
+    }
+
+    .next {
+        right: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .mySlides img {
+        height: 300px;
+    }
+
+    .text {
+        font-size: 20px;
+        padding: 10px;
+    }
+
+    .tech-stack {
+        bottom: 15px;
+        gap: 6px;
+    }
+
+    .tech-tag {
+        font-size: 11px;
+        padding: 5px 10px;
+    }
+
+    .dot {
+        height: 12px;
+        width: 12px;
+        margin: 0 6px;
+    }
+
+    .prev, .next {
+        padding: 10px;
+        font-size: 18px;
+    }
+}
+</style>
+</head>
+
+<body>
+    <h1 class="hero-title">Welcome To Real Estate Price Prediction App</h1>
+    
+    <div class="slideshow-wrapper">
+        <div class="slideshow-container">
+            <!-- Slide 1 -->
+            <div class="mySlides fade">
+                <img src="{% static '1.jpg' %}" alt="Real Estate">
+                <div class="slide-overlay"></div>
+                <div class="text">Real Estate Price Prediction</div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="mySlides fade">
+                <img src="{% static '2.jpg' %}" alt="Machine Learning">
+                <div class="slide-overlay"></div>
+                <div class="text">Using Machine Learning</div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="mySlides fade">
+                <img src="{% static '3.jpg' %}" alt="Django Framework">
+                <div class="slide-overlay"></div>
+                <div class="text">Using Django Framework</div>
+            </div>
+
+            <!-- Slide 4 - New Slide -->
+            <div class="mySlides fade">
+                <img src="{% static 'repp.png' %}" alt="Tech Stack">
+                <div class="slide-overlay"></div>
+                <div class="text">Built With Modern Technologies</div>
+                <div class="tech-stack">
+                    <span class="tech-tag">Machine Learning</span>
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Django</span>
+                    <span class="tech-tag">HTML5</span>
+                    <span class="tech-tag">CSS3</span>
+                    <span class="tech-tag">JavaScript</span>
+                    <span class="tech-tag">Kaggle</span>
+                </div>
+            </div>
+
+            <!-- Navigation Arrows -->
+            <a class="prev" onclick="plusSlides(-1)">❮</a>
+            <a class="next" onclick="plusSlides(1)">❯</a>
+        </div>
+
+        <!-- Dots -->
+        <div class="dots-container">
+            <span class="dot" onclick="currentSlide(1)"></span> 
+            <span class="dot" onclick="currentSlide(2)"></span> 
+            <span class="dot" onclick="currentSlide(3)"></span>
+            <span class="dot" onclick="currentSlide(4)"></span>
+        </div>
+    </div>
+
+    <script>
+        let slideIndex = 0;
+        let slideTimer;
+        showSlides();
+
+        function showSlides() {
+            let i;
+            let slides = document.getElementsByClassName("mySlides");
+            let dots = document.getElementsByClassName("dot");
+            
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";  
+            }
+            
+            slideIndex++;
+            if (slideIndex > slides.length) {
+                slideIndex = 1;
+            }    
+            
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            
+            slides[slideIndex - 1].style.display = "block";  
+            dots[slideIndex - 1].className += " active";
+            
+            slideTimer = setTimeout(showSlides, 4000); // Change image every 4 seconds
+        }
+
+        function plusSlides(n) {
+            clearTimeout(slideTimer);
+            slideIndex += n - 1;
+            if (slideIndex < 0) {
+                slideIndex = document.getElementsByClassName("mySlides").length - 1;
+            }
+            if (slideIndex >= document.getElementsByClassName("mySlides").length) {
+                slideIndex = 0;
+            }
+            showSlides();
+        }
+
+        function currentSlide(n) {
+            clearTimeout(slideTimer);
+            slideIndex = n - 1;
+            showSlides();
+        }
+    </script>
+</body>
+
+{% endblock %}
